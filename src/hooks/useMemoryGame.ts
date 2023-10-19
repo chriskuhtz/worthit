@@ -13,10 +13,6 @@ export interface Tile {
 	ownerName?: string;
 }
 
-export const mockPlayers: Player[] = [
-	{ id: 'BEAR', name: 'bear', score: 0, active: true },
-	{ id: 'ICIA', name: 'icia', score: 0, active: false },
-];
 export const mockOptions: string[] = [
 	'red',
 	'blue',
@@ -27,13 +23,13 @@ export const mockOptions: string[] = [
 ];
 
 export const useMemoryGame = () => {
-	const [players, setPlayers] = useState<Player[]>(mockPlayers);
+	const [players, setPlayers] = useState<Player[]>([]);
 	const [tiles, setTiles] = useState<Tile[]>([]);
 	const [selectedTiles, setSelectedTiles] = useState<Tile[]>([]);
 	const [winners, setWinners] = useState<Player[] | undefined>();
 
 	useEffect(() => {
-		if (tiles.every((t) => t.ownerName) && !winners) {
+		if (tiles.length > 0 && tiles.every((t) => t.ownerName) && !winners) {
 			const highScore = players.sort((a, b) => b.score - a.score)[0].score;
 			setWinners([...players].filter((p) => p.score === highScore));
 		}
@@ -187,5 +183,6 @@ export const useMemoryGame = () => {
 		winners,
 		setSelectedTiles,
 		resetScores,
+		setPlayers,
 	};
 };

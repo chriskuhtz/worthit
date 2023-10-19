@@ -1,3 +1,4 @@
+import { PlayerSelection } from './components/PlayerSelection/PlayerSelection';
 import { PlayerTile } from './components/PlayerTile/PlayerTile';
 import { TileDisplay } from './components/Tile/Tile';
 import { WinnerScreen } from './components/WinnerScreen/WinnerScreen';
@@ -12,8 +13,21 @@ function App() {
 		players,
 		winners,
 		resetScores,
+		setPlayers,
 	} = useMemoryGame();
 
+	console.log(players, tiles);
+
+	if (players.length === 0) {
+		return (
+			<PlayerSelection
+				begin={(newPlayers) => {
+					setPlayers(newPlayers);
+					randomlyFillTiles(mockOptions);
+				}}
+			/>
+		);
+	}
 	if (winners) {
 		return (
 			<WinnerScreen
