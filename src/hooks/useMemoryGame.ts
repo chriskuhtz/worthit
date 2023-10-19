@@ -48,7 +48,7 @@ export const useMemoryGame = () => {
 		const copiedOptions = [...options];
 		const res: Tile[] = [];
 
-		const numberOfTiles = options.length * 2;
+		const numberOfTiles = Math.min(48, options.length * 2);
 
 		while (res.length < numberOfTiles) {
 			const randomIndex1 = Math.round(Math.random() * numberOfTiles);

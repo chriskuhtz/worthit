@@ -9,19 +9,31 @@ export const TileDisplay = ({
 	isSelected: boolean;
 	select: (x: Tile) => void;
 }) => {
+	if (isSelected) {
+		return <img src={tile.source} height={100} width={100} />;
+	}
+	if (tile.ownerName) {
+		return (
+			<div
+				className="tile"
+				style={{
+					backgroundColor: 'red',
+				}}
+			>
+				{tile.ownerName}
+			</div>
+		);
+	}
 	return (
 		<div
 			className="tile"
 			style={{
-				backgroundColor:
-					isSelected || tile.ownerName ? tile.source : 'lightgray',
+				backgroundColor: 'lightgray',
 			}}
 			onClick={() => {
 				if (!tile.ownerName) select(tile);
 			}}
 			role="button"
-		>
-			{tile.ownerName}
-		</div>
+		></div>
 	);
 };

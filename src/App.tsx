@@ -3,8 +3,11 @@ import { PlayerTile } from './components/PlayerTile/PlayerTile';
 import { TileDisplay } from './components/Tile/Tile';
 import { WinnerScreen } from './components/WinnerScreen/WinnerScreen';
 import { mockOptions, useMemoryGame } from './hooks/useMemoryGame';
+import { useOptions } from './hooks/useOptions';
 
 function App() {
+	const options = useOptions();
+
 	const {
 		tiles,
 		randomlyFillTiles,
@@ -16,14 +19,12 @@ function App() {
 		setPlayers,
 	} = useMemoryGame();
 
-	console.log(players, tiles);
-
 	if (players.length === 0) {
 		return (
 			<PlayerSelection
 				begin={(newPlayers) => {
 					setPlayers(newPlayers);
-					randomlyFillTiles(mockOptions);
+					randomlyFillTiles(options);
 				}}
 			/>
 		);
@@ -34,7 +35,7 @@ function App() {
 				winners={winners}
 				playAgain={() => {
 					resetScores();
-					randomlyFillTiles(mockOptions);
+					randomlyFillTiles(options);
 				}}
 			/>
 		);
