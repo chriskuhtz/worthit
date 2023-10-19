@@ -12,8 +12,16 @@ export const TileDisplay = ({
 	return (
 		<div
 			className="tile"
-			style={{ backgroundColor: isSelected ? tile.source : 'lightgray' }}
-			onClick={() => select(tile)}
-		></div>
+			style={{
+				backgroundColor:
+					isSelected || tile.ownerName ? tile.source : 'lightgray',
+			}}
+			onClick={() => {
+				if (!tile.ownerName) select(tile);
+			}}
+			role="button"
+		>
+			{tile.ownerName}
+		</div>
 	);
 };

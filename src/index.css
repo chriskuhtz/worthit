@@ -30,3 +30,10 @@ body {
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 	gap: 1rem;
 }
+
+.playerArea {
+	display: flex;
+	justify-content: space-between;
+
+	gap: 1rem;
+}
