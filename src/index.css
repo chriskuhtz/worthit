@@ -19,3 +19,14 @@ body {
 
 	min-height: 100vh;
 }
+
+.tile {
+	height: 100px;
+	width: 100px;
+}
+
+.board {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	gap: 1rem;
+}
