@@ -12,7 +12,8 @@
 }
 
 .modalContent {
-	background-color: white;
+	background-color: #242424;
+	color: white;
 	padding: 1rem;
 	margin: 1rem;
 	border-radius: 1rem;

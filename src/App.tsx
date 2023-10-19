@@ -21,6 +21,7 @@ function App() {
 		winners,
 		resetScores,
 		setPlayers,
+		focusedPlayer,
 		focusTile,
 	} = useMemoryGame();
 
@@ -49,11 +50,16 @@ function App() {
 			/>
 		);
 	}
+
 	return (
 		<div>
 			<Modal
 				open={!!focusTile}
 				modalContent={<img src={focusTile?.source} height={600} width={600} />}
+			/>
+			<Modal
+				open={!!focusedPlayer}
+				modalContent={<h1>{focusedPlayer?.name} ist dran</h1>}
 			/>
 			<div className="playerArea">
 				{players.map((p) => (
@@ -67,7 +73,12 @@ function App() {
 						isSelected={selectedTiles.some((s) => s.index === t.index)}
 						select={select}
 						disabled={
-							!!(t.ownerName || selectedTiles.length === 2 || focusTile)
+							!!(
+								t.ownerName ||
+								selectedTiles.length === 2 ||
+								focusTile ||
+								focusedPlayer
+							)
 						}
 					/>
 				))}

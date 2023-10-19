@@ -25,6 +25,7 @@ export const mockOptions: string[] = [
 const timer = 2000;
 
 export const useMemoryGame = () => {
+	const [focusedPlayer, setFocusedPlayer] = useState<Player | undefined>();
 	const [players, setPlayers] = useState<Player[]>([]);
 	const [tiles, setTiles] = useState<Tile[]>([]);
 	const [selectedTiles, setSelectedTiles] = useState<Tile[]>([]);
@@ -46,6 +47,14 @@ export const useMemoryGame = () => {
 		}, timer);
 	}, [selectedTiles]);
 
+	useEffect(() => {
+		if (focusedPlayer) {
+			setTimeout(() => {
+				return setFocusedPlayer(undefined);
+			}, timer);
+		}
+	}, [focusedPlayer]);
+
 	const resetScores = useCallback(() => {
 		setWinners(undefined);
 		setPlayers(
@@ -59,7 +68,7 @@ export const useMemoryGame = () => {
 		const copiedOptions = [...options];
 		const res: Tile[] = [];
 
-		const numberOfTiles = Math.min(48, options.length * 2);
+		const numberOfTiles = Math.min(40, options.length * 2);
 
 		while (res.length < numberOfTiles) {
 			const randomIndex1 = Math.round(Math.random() * numberOfTiles);
@@ -100,7 +109,7 @@ export const useMemoryGame = () => {
 			...updatedPlayers[nextPlayerIndex],
 			active: true,
 		});
-
+		setFocusedPlayer({ ...updatedPlayers[nextPlayerIndex] });
 		setPlayers([...updatedPlayers]);
 	}, [players]);
 
@@ -196,5 +205,6 @@ export const useMemoryGame = () => {
 		resetScores,
 		setPlayers,
 		focusTile,
+		focusedPlayer,
 	};
 };
