@@ -22,18 +22,29 @@ export const mockOptions: string[] = [
 	'orange',
 ];
 
+const timer = 2000;
+
 export const useMemoryGame = () => {
 	const [players, setPlayers] = useState<Player[]>([]);
 	const [tiles, setTiles] = useState<Tile[]>([]);
 	const [selectedTiles, setSelectedTiles] = useState<Tile[]>([]);
 	const [winners, setWinners] = useState<Player[] | undefined>();
-
+	const [focusTile, setFocusTile] = useState<Tile | undefined>();
 	useEffect(() => {
 		if (tiles.length > 0 && tiles.every((t) => t.ownerName) && !winners) {
 			const highScore = players.sort((a, b) => b.score - a.score)[0].score;
 			setWinners([...players].filter((p) => p.score === highScore));
 		}
 	}, [players, tiles, winners]);
+
+	useEffect(() => {
+		if (selectedTiles.length > 0) {
+			setFocusTile(selectedTiles[selectedTiles.length - 1]);
+		}
+		setTimeout(() => {
+			return setFocusTile(undefined);
+		}, timer);
+	}, [selectedTiles]);
 
 	const resetScores = useCallback(() => {
 		setWinners(undefined);
@@ -162,7 +173,7 @@ export const useMemoryGame = () => {
 				}
 
 				setSelectedTiles([]);
-			}, 1000);
+			}, timer * 1.5);
 
 			//nextPlayersTurn
 		}
@@ -184,5 +195,6 @@ export const useMemoryGame = () => {
 		setSelectedTiles,
 		resetScores,
 		setPlayers,
+		focusTile,
 	};
 };

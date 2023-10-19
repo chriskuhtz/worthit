@@ -7,7 +7,7 @@ export interface UnsplashResult {
 export interface UnsplashResponse {
 	results: UnsplashResult[];
 }
-export const useOptions = (): string[] => {
+export const useOptions = (theme: string): string[] => {
 	const [options, setOptions] = useState<UnsplashResult[]>([]);
 	const [fetching, setFetching] = useState<boolean>(false);
 
@@ -17,7 +17,7 @@ export const useOptions = (): string[] => {
 			const result = await axios.get(
 				'https://api.unsplash.com//search/photos',
 				{
-					params: { query: 'cat', page: 1, per_page: 64 },
+					params: { query: theme, page: 1, per_page: 64 },
 					headers: {
 						Authorization:
 							'Client-ID eUR9sNNGSjfDU5ACDh1iS2jMbL32FHT6QxAlmIUvtGQ',
@@ -29,10 +29,10 @@ export const useOptions = (): string[] => {
 			setFetching(false);
 		}
 
-		if (options.length === 0 && !fetching) {
+		if (options.length === 0 && !fetching && theme !== '') {
 			startFetching();
 		}
-	}, [fetching, options]);
+	}, [fetching, options, theme]);
 
 	return options.map((o) => o.urls.small);
 };

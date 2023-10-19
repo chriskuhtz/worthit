@@ -34,6 +34,36 @@ body {
 .playerArea {
 	display: flex;
 	justify-content: space-between;
-
+	margin-bottom: 1rem;
 	gap: 1rem;
+}
+
+.ownerName {
+	position: relative;
+	top: -106px;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	width: 100px;
+	text-align: center;
+	line-height: 100px;
+	font-weight: bolder;
+	font-size: large;
+	z-index: 2;
+	margin-bottom: -106px;
+}
+
+button {
+	color: white;
+	padding: 2rem;
+	margin: 1rem;
+	border: 3px solid white;
+	background-color: #242424;
+	border-radius: 9000px;
+
+	font-weight: bolder;
+	font-size: larger;
+}
+
+input {
+	font-size: x-large;
 }

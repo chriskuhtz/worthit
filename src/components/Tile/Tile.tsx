@@ -4,23 +4,21 @@ export const TileDisplay = ({
 	tile,
 	isSelected,
 	select,
+	disabled,
 }: {
 	tile: Tile;
 	isSelected: boolean;
 	select: (x: Tile) => void;
+	disabled: boolean;
 }) => {
 	if (isSelected) {
 		return <img src={tile.source} height={100} width={100} />;
 	}
 	if (tile.ownerName) {
 		return (
-			<div
-				className="tile"
-				style={{
-					backgroundColor: 'red',
-				}}
-			>
-				{tile.ownerName}
+			<div>
+				<img src={tile.source} height={100} width={100} />
+				<div className="ownerName">{tile.ownerName}</div>
 			</div>
 		);
 	}
@@ -31,7 +29,7 @@ export const TileDisplay = ({
 				backgroundColor: 'lightgray',
 			}}
 			onClick={() => {
-				if (!tile.ownerName) select(tile);
+				if (!disabled) select(tile);
 			}}
 			role="button"
 		></div>
