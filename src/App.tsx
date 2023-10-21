@@ -4,7 +4,7 @@ import { PlayerTile } from './components/PlayerTile/PlayerTile';
 import { ThemeSelection } from './components/ThemeSelection/ThemeSelection';
 import { TileDisplay } from './components/Tile/Tile';
 import { WinnerScreen } from './components/WinnerScreen/WinnerScreen';
-import { useMemoryGame } from './hooks/useMemoryGame';
+import { minTiles, useMemoryGame } from './hooks/useMemoryGame';
 import { useOptions } from './hooks/useOptions';
 import { Modal } from './ui_components/Modal/Modal';
 
@@ -38,6 +38,10 @@ function App() {
 				}}
 			/>
 		);
+	}
+
+	if (theme && options.length > 1 && options.length < minTiles / 2) {
+		return <h1>Leider haben wir nicht genug Bilder von {theme} gefunden </h1>;
 	}
 	if (winners) {
 		return (
