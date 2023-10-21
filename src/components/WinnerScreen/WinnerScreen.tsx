@@ -3,8 +3,6 @@ import { Player } from '../../hooks/useMemoryGame';
 export const WinnerScreen = ({
 	winners,
 	playAgain,
-	removePlayers,
-	removeTheme,
 }: {
 	winners: Player[];
 	playAgain: () => void;
