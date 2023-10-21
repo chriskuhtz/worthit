@@ -64,6 +64,7 @@ export const PlayerSelection = ({
 					if (existingPlayer) {
 						return (
 							<button
+								key={p}
 								onClick={() => {
 									setNewPlayers([
 										...newPlayers.filter((np) => np.id !== existingPlayer.id),
@@ -80,6 +81,7 @@ export const PlayerSelection = ({
 					}
 					return (
 						<button
+							key={p}
 							disabled={newPlayers.length >= playerColors.length}
 							onClick={() => {
 								setNewPlayers([
@@ -105,6 +107,7 @@ export const PlayerSelection = ({
 					.map((p) => {
 						return (
 							<button
+								key={p.id}
 								onClick={() => {
 									setNewPlayers([...newPlayers.filter((np) => np.id !== p.id)]);
 								}}

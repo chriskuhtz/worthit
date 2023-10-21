@@ -24,6 +24,7 @@ function App() {
 		focusedPlayer,
 		focusTile,
 		setWinners,
+		setFocusTile,
 	} = useMemoryGame();
 
 	if (theme === '') {
@@ -87,8 +88,17 @@ function App() {
 			<div className="board">
 				{tiles.map((t) => (
 					<TileDisplay
+						key={t.index}
 						tile={t}
 						isSelected={selectedTiles.some((s) => s.index === t.index)}
+						focusAgain={() => {
+							if (
+								selectedTiles.length === 1 &&
+								selectedTiles.some((s) => s.index === t.index)
+							) {
+								setFocusTile(t);
+							}
+						}}
 						select={select}
 						disabled={
 							!!(

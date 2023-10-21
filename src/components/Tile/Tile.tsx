@@ -5,14 +5,18 @@ export const TileDisplay = ({
 	isSelected,
 	select,
 	disabled,
+	focusAgain,
 }: {
 	tile: Tile;
 	isSelected: boolean;
 	select: (x: Tile) => void;
 	disabled: boolean;
+	focusAgain: () => void;
 }) => {
 	if (isSelected) {
-		return <img src={tile.source} height={100} width={100} />;
+		return (
+			<img onClick={focusAgain} src={tile.source} height={100} width={100} />
+		);
 	}
 	if (tile.ownerName && tile.ownerColor) {
 		return (

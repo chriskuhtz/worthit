@@ -42,12 +42,17 @@ export const useMemoryGame = () => {
 	}, [players, tiles, winners]);
 
 	useEffect(() => {
+		if (focusTile) {
+			setTimeout(() => {
+				return setFocusTile(undefined);
+			}, timer);
+		}
+	}, [focusTile]);
+
+	useEffect(() => {
 		if (selectedTiles.length > 0) {
 			setFocusTile(selectedTiles[selectedTiles.length - 1]);
 		}
-		setTimeout(() => {
-			return setFocusTile(undefined);
-		}, timer);
 	}, [selectedTiles]);
 
 	useEffect(() => {
@@ -214,5 +219,6 @@ export const useMemoryGame = () => {
 		focusTile,
 		focusedPlayer,
 		setWinners,
+		setFocusTile,
 	};
 };
