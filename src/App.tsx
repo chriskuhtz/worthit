@@ -23,6 +23,7 @@ function App() {
 		setPlayers,
 		focusedPlayer,
 		focusTile,
+		setWinners,
 	} = useMemoryGame();
 
 	if (theme === '') {
@@ -50,6 +51,15 @@ function App() {
 				playAgain={() => {
 					resetScores();
 					randomlyFillTiles(options);
+				}}
+				removePlayers={() => {
+					setPlayers([]);
+					setWinners(undefined);
+				}}
+				removeTheme={() => {
+					resetScores();
+					setTheme('');
+					setWinners(undefined);
 				}}
 			/>
 		);

@@ -88,7 +88,7 @@ export const useMemoryGame = () => {
 				copiedOptions.splice(0, 1);
 			}
 		}
-		console.log(res);
+
 		setTiles(res.sort((a, b) => a.index - b.index));
 	}, []);
 
@@ -213,5 +213,6 @@ export const useMemoryGame = () => {
 		setPlayers,
 		focusTile,
 		focusedPlayer,
+		setWinners,
 	};
 };
