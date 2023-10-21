@@ -2,6 +2,16 @@ import { useCallback, useState } from 'react';
 import { Player } from '../../hooks/useMemoryGame';
 import { Pill } from '../../ui_components/Pill/Pill';
 
+const playerColors = [
+	'orange',
+	'lightgreen',
+	'lightblue',
+	'pink',
+	'red',
+	'camelbrown',
+	'yellow',
+	'aquamarine',
+];
 export const PlayerSelection = ({
 	begin,
 }: {
@@ -19,6 +29,7 @@ export const PlayerSelection = ({
 					id: newPlayerInput,
 					active: newPlayers.length === 0,
 					score: 0,
+					color: playerColors[newPlayers.length],
 				},
 			]);
 		}

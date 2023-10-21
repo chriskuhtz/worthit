@@ -14,11 +14,16 @@ export const TileDisplay = ({
 	if (isSelected) {
 		return <img src={tile.source} height={100} width={100} />;
 	}
-	if (tile.ownerName) {
+	if (tile.ownerName && tile.ownerColor) {
 		return (
 			<div>
 				<img src={tile.source} height={100} width={100} />
-				<div className="ownerName">{tile.ownerName}</div>
+				<div
+					className="ownerBackground"
+					style={{ backgroundColor: tile.ownerColor }}
+				>
+					<div className="ownerName">{tile.ownerName}</div>
+				</div>
 			</div>
 		);
 	}

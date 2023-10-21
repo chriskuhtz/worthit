@@ -59,7 +59,11 @@ function App() {
 			/>
 			<Modal
 				open={!!focusedPlayer}
-				modalContent={<h1>{focusedPlayer?.name} ist dran</h1>}
+				modalContent={
+					<h1 style={{ color: focusedPlayer?.color }}>
+						{focusedPlayer?.name} ist dran
+					</h1>
+				}
 			/>
 			<div className="playerArea">
 				{players.map((p) => (

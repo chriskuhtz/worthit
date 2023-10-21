@@ -5,12 +5,14 @@ export interface Player {
 	score: number;
 	id: string;
 	active: boolean;
+	color: string;
 }
 
 export interface Tile {
 	source: string;
 	index: number;
 	ownerName?: string;
+	ownerColor?: string;
 }
 
 export const mockOptions: string[] = [
@@ -23,6 +25,7 @@ export const mockOptions: string[] = [
 ];
 
 const timer = 2000;
+const minTiles = 4;
 
 export const useMemoryGame = () => {
 	const [focusedPlayer, setFocusedPlayer] = useState<Player | undefined>();
@@ -68,7 +71,7 @@ export const useMemoryGame = () => {
 		const copiedOptions = [...options];
 		const res: Tile[] = [];
 
-		const numberOfTiles = Math.min(40, options.length * 2);
+		const numberOfTiles = Math.min(minTiles, options.length * 2);
 
 		while (res.length < numberOfTiles) {
 			const randomIndex1 = Math.round(Math.random() * numberOfTiles);
@@ -154,7 +157,11 @@ export const useMemoryGame = () => {
 		}
 		const updatedTiles = [...tiles].map((t) => {
 			if (selectedTiles.some((s) => s.index === t.index)) {
-				return { ...t, ownerName: activePlayer.name };
+				return {
+					...t,
+					ownerName: activePlayer.name,
+					ownerColor: activePlayer.color,
+				};
 			}
 			return t;
 		});

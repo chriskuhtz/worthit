@@ -38,18 +38,24 @@ body {
 	gap: 1rem;
 }
 
-.ownerName {
+.ownerBackground {
 	position: relative;
 	top: -106px;
 	left: 0;
-	background-color: rgba(0, 0, 0, 0.4);
+	opacity: 0.6;
 	width: 100px;
-	text-align: center;
-	line-height: 100px;
+	height: 100px;
+
 	font-weight: bolder;
 	font-size: large;
 	z-index: 2;
 	margin-bottom: -106px;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+}
+.ownerName {
+	opacity: 1;
 }
 
 button {
