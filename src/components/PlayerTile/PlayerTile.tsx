@@ -1,14 +1,17 @@
 import { Player } from '../../hooks/useMemoryGame';
-import { Pill } from '../../ui_components/Pill/Pill';
 
 export const PlayerTile = ({ player }: { player: Player }): JSX.Element => {
 	return (
-		<Pill
-			leftSide={
-				player.active ? <div style={{ color: player.color }}>Am Zug</div> : ''
+		<div
+			className="playerTile"
+			style={
+				player.active
+					? { backgroundColor: player.color, color: 'black' }
+					: { color: player.color }
 			}
-			center={<div style={{ color: player.color }}>{player.name}</div>}
-			rightSide={<div style={{ color: player.color }}>{player.score}</div>}
-		/>
+		>
+			<div>{player.name}</div>
+			<div>{player.score}</div>
+		</div>
 	);
 };

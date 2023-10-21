@@ -25,7 +25,7 @@ export const mockOptions: string[] = [
 ];
 
 const timer = 2000;
-export const minTiles = 4;
+export const minTiles = 40;
 
 export const useMemoryGame = () => {
 	const [focusedPlayer, setFocusedPlayer] = useState<Player | undefined>();

@@ -7,7 +7,7 @@ const playerColors = [
 	'lightblue',
 	'pink',
 	'red',
-	'camelbrown',
+	'peru',
 	'yellow',
 	'aquamarine',
 ];
