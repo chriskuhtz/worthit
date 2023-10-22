@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { CalculationTable } from '../App';
+import { calculateInvestment } from '../functions/calculateInvestment';
 import { calculatePurchase } from '../functions/calculatePurchase';
+
+export const annualSP500 = 10;
 
 export const useCalculation = () => {
 	const [loanAmount, setLoanAmount] = useState<number>(0);
@@ -53,10 +56,28 @@ export const useCalculation = () => {
 			onePercentRate,
 			'Alternative: 2% Repayment'
 		);
+
+		const investmentData = chosenVersion.isPossible
+			? chosenVersion
+			: onePercentRateVersion;
+		const investment = calculateInvestment(
+			annualSP500,
+			investmentData.inputs.monthlyRate,
+			investmentData.years,
+			`Invest with average S&P 500 returns for ${investmentData.years} Years`
+		);
+		const pessimisticInvestment = calculateInvestment(
+			annualSP500 / 2,
+			investmentData.inputs.monthlyRate,
+			investmentData.years,
+			`Invest with half the average S&P 500 returns for ${investmentData.years} Years`
+		);
 		setCalculationTables([
 			chosenVersion,
 			onePercentRateVersion,
 			twoPercentRateVersion,
+			investment,
+			pessimisticInvestment,
 		]);
 	}, [loanAmount, interestRate, monthlyRate, onePercentRate, twoPercentRate]);
 

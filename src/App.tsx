@@ -1,3 +1,4 @@
+import { CalcTables } from './components/CalculationTables/CalculationTables';
 import { useCalculation } from './hooks/useCalculation';
 import { CustomInput } from './ui_components/CustomInput/CustomInput';
 
@@ -18,20 +19,8 @@ export interface CalculationTable {
 	isPossible: boolean;
 	totalInterestPayed?: number;
 	headline: string;
+	years: number;
 }
-
-export const getYearlyRepayment = ({
-	loanAmount,
-	interestRate,
-	monthlyRate,
-}: CalculationTableInputs) => {
-	const yearlyAmount = monthlyRate * 12;
-	const firstYearInterest = interestRate * (loanAmount / 100);
-
-	const firstYearRepayment = yearlyAmount - firstYearInterest;
-
-	return (firstYearRepayment / loanAmount) * 100;
-};
 
 function App() {
 	const {
@@ -50,11 +39,6 @@ function App() {
 		<div className="container" style={{ alignItems: 'center' }}>
 			{!calculationTables && (
 				<>
-					<h1> Is it worth it?</h1>
-					<h2>
-						Should I buy a property or invest in the stock market? A few
-						interactive suggestions.
-					</h2>
 					<div className="form">
 						<CustomInput
 							value={loanAmount.toString()}
@@ -91,32 +75,10 @@ function App() {
 				</>
 			)}
 			{calculationTables && (
-				<>
-					<div className="tablesGrid">
-						{calculationTables?.map((c) => (
-							<div
-								className={`explanation ${c.isPossible ? 'success' : 'error'}`}
-							>
-								<h3>{c.headline}</h3>
-								{c.inputs.type === 'borrow' && (
-									<div className="inputExplanation">
-										<p>LoanAmount: {c.inputs.loanAmount}$</p>
-										<p>Interest Rate: {c.inputs.interestRate}%</p>
-										<p>Monthly Rate: {c.inputs.monthlyRate}$</p>
-										<p>
-											Yearly Repayment:{' '}
-											{getYearlyRepayment(c.inputs).toFixed(2)}%
-										</p>
-									</div>
-								)}
-								<p>{c.explanation}</p>
-							</div>
-						))}
-					</div>
-					<button onClick={() => setCalculationTables(undefined)}>
-						Change Data
-					</button>
-				</>
+				<CalcTables
+					calculationTables={calculationTables}
+					resetCalculationTables={() => setCalculationTables(undefined)}
+				/>
 			)}
 		</div>
 	);

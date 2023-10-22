@@ -23,6 +23,7 @@ export const calculatePurchase = (
 			headline,
 			inputs,
 			isPossible: false,
+			years: 0,
 			explanation: `Unfortunately, your monthly payment is not high enough to pay back
 			this loan. In order to repay 1% of the loan per year your monthly rate needs to be higher than ${minRate}$`,
 		};
@@ -49,6 +50,7 @@ export const calculatePurchase = (
 			(totalInterestPayed / loanAmount) * 100
 		)}% in total interest.`,
 		isPossible: true,
+		years: i,
 		totalInterestPayed: totalInterestPayed,
 		headline,
 		inputs,

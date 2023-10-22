@@ -76,14 +76,19 @@ input {
 	font-weight: bold;
 }
 
-.tablesGrid {
-	display: grid;
-	gap: 1rem;
-	grid-template-columns: 1fr 1fr;
-}
-
 .inputExplanation {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+	gap: 0.5rem;
+}
+
+.comparison {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 3rem;
+}
+.resultList {
+	display: grid;
+	grid-template-columns: 1fr;
 	gap: 0.5rem;
 }
