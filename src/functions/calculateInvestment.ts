@@ -1,22 +1,11 @@
-import {
-	CalculationTable,
-	CalculationTableInputs,
-	CalculationTableRow,
-} from '../App';
+import { CalculationTableRow, InvestmentCalculationTable } from '../App';
 
 export const calculateInvestment = (
 	interestRate: number,
 	monthlyRate: number,
 	years: number,
 	headline: string
-): CalculationTable => {
-	const inputs: CalculationTableInputs = {
-		loanAmount: 0,
-		interestRate,
-		monthlyRate,
-		type: 'invest',
-	};
-
+): InvestmentCalculationTable => {
 	const rows: CalculationTableRow[] = [];
 	let total = 0;
 
@@ -30,12 +19,12 @@ export const calculateInvestment = (
 
 	return {
 		rows,
-		explanation: `Investing ${monthlyRate}$ per month at ${interestRate}% per year will yield ${Math.floor(
-			total
-		)}$ after ${years} years.`,
-		isPossible: true,
 		years,
 		headline,
-		inputs,
+		interestRate,
+		type: 'invest',
+		monthlyRate,
+		totalInvested: years * monthlyRate * 12,
+		totalInterestGained: total - years * monthlyRate * 12,
 	};
 };

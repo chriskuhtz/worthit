@@ -1,8 +1,4 @@
-import {
-	CalculationTable,
-	CalculationTableInputs,
-	CalculationTableRow,
-} from '../App';
+import { CalculationTableRow, LoanCalculationTable } from '../App';
 
 export const calculatePurchase = (
 	loanAmount: number,
@@ -10,22 +6,17 @@ export const calculatePurchase = (
 	monthlyRate: number,
 	minRate: number,
 	headline: string
-): CalculationTable => {
-	const inputs: CalculationTableInputs = {
-		loanAmount,
-		interestRate,
-		monthlyRate,
-		type: 'borrow',
-	};
+): LoanCalculationTable => {
 	if (minRate > monthlyRate) {
 		return {
 			rows: [],
 			headline,
-			inputs,
+			type: 'borrow',
 			isPossible: false,
 			years: 0,
-			explanation: `Unfortunately, your monthly payment is not high enough to pay back
-			this loan. In order to repay 1% of the loan per year your monthly rate needs to be higher than ${minRate}$`,
+			loanAmount,
+			interestRate,
+			monthlyRate,
 		};
 	}
 	const rows: CalculationTableRow[] = [];
@@ -44,15 +35,13 @@ export const calculatePurchase = (
 
 	return {
 		rows,
-		explanation: `It will take you ${i} years to repay the loan and cost ${Math.floor(
-			totalInterestPayed
-		)}$ or  ${Math.floor(
-			(totalInterestPayed / loanAmount) * 100
-		)}% in total interest.`,
 		isPossible: true,
 		years: i,
 		totalInterestPayed: totalInterestPayed,
 		headline,
-		inputs,
+		type: 'borrow',
+		loanAmount,
+		interestRate,
+		monthlyRate,
 	};
 };

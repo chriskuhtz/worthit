@@ -1,26 +1,51 @@
 import { CalculationTable } from '../../App';
-import { getYearlyRepayment } from '../../functions/getYearlyRepayment';
 
 export const ResultListItem = ({
 	calcTable,
 }: {
 	calcTable: CalculationTable;
 }) => {
-	return (
-		<div
-			className={`explanation ${calcTable.isPossible ? 'success' : 'error'}`}
-		>
-			<h3>{calcTable.headline}:</h3>
+	if (calcTable.type === 'borrow') {
+		return (
+			<div
+				className={`explanation ${calcTable.isPossible ? 'success' : 'error'}`}
+			>
+				<h3>{calcTable.headline}:</h3>
 
-			<div className="inputExplanation">
-				<p>LoanAmount: {calcTable.inputs.loanAmount}$</p>
-				<p>Interest Rate: {calcTable.inputs.interestRate}%</p>
-				<p>Monthly Rate: {calcTable.inputs.monthlyRate}$</p>
-				<p>
-					Yearly Repayment: {getYearlyRepayment(calcTable.inputs).toFixed(2)}%
-				</p>
+				<div className="inputExplanation">
+					<p>LoanAmount: {calcTable.loanAmount}$</p>
+
+					<p>Duration: {calcTable.years} Years</p>
+
+					<p>Interest Rate: {calcTable.interestRate}%</p>
+					<p>Monthly Rate: {calcTable.monthlyRate}$</p>
+
+					{calcTable.totalInterestPayed && (
+						<p>
+							Total Interest Payed: {calcTable.totalInterestPayed?.toFixed(0)}$
+							or{' '}
+							{(
+								(calcTable.totalInterestPayed / calcTable.loanAmount) *
+								100
+							).toFixed(0)}
+							%
+						</p>
+					)}
+				</div>
 			</div>
-			<p>{calcTable.explanation}</p>
-		</div>
-	);
+		);
+	}
+
+	if (calcTable.type === 'invest') {
+		return (
+			<div className={`explanation success`}>
+				<h3>{calcTable.headline}:</h3>
+
+				<div className="inputExplanation">
+					<p>Interest Rate: {calcTable.interestRate}%</p>
+					<p>Monthly Rate: {calcTable.monthlyRate}$</p>
+				</div>
+			</div>
+		);
+	}
 };

@@ -16,7 +16,7 @@ export const CalcTables = ({
 					<h1>Buying:</h1>
 					<div className="resultList">
 						{calculationTables
-							?.filter((c) => c.inputs.type === 'borrow')
+							?.filter((c) => c.type === 'borrow')
 							.map((c) => (
 								<ResultListItem calcTable={c} />
 							))}
@@ -26,7 +26,7 @@ export const CalcTables = ({
 					<h1>Investing:</h1>
 					<div className="resultList">
 						{calculationTables
-							?.filter((c) => c.inputs.type === 'invest')
+							?.filter((c) => c.type === 'invest')
 							.map((c) => (
 								<ResultListItem calcTable={c} />
 							))}

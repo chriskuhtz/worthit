@@ -1,26 +1,35 @@
 import { CalcTables } from './components/CalculationTables/CalculationTables';
+import { Form } from './components/Form/Form';
 import { useCalculation } from './hooks/useCalculation';
-import { CustomInput } from './ui_components/CustomInput/CustomInput';
 
 export interface CalculationTableRow {
 	year: number;
 	remainingDebt: number;
 }
-export interface CalculationTableInputs {
-	loanAmount: number;
+
+export interface BaseCalculationTable {
+	rows: CalculationTableRow[];
+	type: 'borrow' | 'invest';
+	headline: string;
 	interestRate: number;
 	monthlyRate: number;
-	type: 'borrow' | 'invest';
-}
-export interface CalculationTable {
-	rows: CalculationTableRow[];
-	explanation: string;
-	inputs: CalculationTableInputs;
-	isPossible: boolean;
-	totalInterestPayed?: number;
-	headline: string;
 	years: number;
 }
+
+export interface LoanCalculationTable extends BaseCalculationTable {
+	type: 'borrow';
+	isPossible: boolean;
+	totalInterestPayed?: number;
+	loanAmount: number;
+}
+export interface InvestmentCalculationTable extends BaseCalculationTable {
+	type: 'invest';
+	totalInterestGained: number;
+	totalInvested: number;
+}
+export type CalculationTable =
+	| LoanCalculationTable
+	| InvestmentCalculationTable;
 
 function App() {
 	const {
@@ -38,41 +47,16 @@ function App() {
 	return (
 		<div className="container" style={{ alignItems: 'center' }}>
 			{!calculationTables && (
-				<>
-					<div className="form">
-						<CustomInput
-							value={loanAmount.toString()}
-							onChange={(x) => setLoanAmount(parseInt(x))}
-							errorMessage={''}
-							type={'number'}
-							placeholder={'Loan Amount'}
-							label={'Loan Amount ($)'}
-							explanation="How much money do you need to borrow"
-						/>
-						<CustomInput
-							value={interestRate.toString()}
-							onChange={(x) => setInterestRate(parseInt(x))}
-							errorMessage={''}
-							type={'number'}
-							placeholder={'Interest Rate'}
-							label={'Interest Rate (%)'}
-							explanation="What is your expected interest rate"
-						/>
-						<CustomInput
-							value={monthlyRate.toString()}
-							onChange={(x) => setMonthlyRate(parseInt(x))}
-							errorMessage={''}
-							type={'number'}
-							placeholder={'Monthly Rate'}
-							label={'Monthly Rate ($)'}
-							explanation="How much can you repay each month"
-						/>
-
-						<button disabled={!calculationPossible} onClick={calculate}>
-							Calculate
-						</button>
-					</div>
-				</>
+				<Form
+					loanAmount={loanAmount}
+					setLoanAmount={setLoanAmount}
+					setInterestRate={setInterestRate}
+					setMonthlyRate={setMonthlyRate}
+					interestRate={interestRate}
+					monthlyRate={monthlyRate}
+					calculationPossible={calculationPossible}
+					calculate={calculate}
+				/>
 			)}
 			{calculationTables && (
 				<CalcTables

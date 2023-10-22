@@ -29,8 +29,8 @@ export const useCalculation = () => {
 		setCalculationTables(undefined);
 	}, [loanAmount, interestRate, monthlyRate]);
 
-	const calculationPossible = useMemo(
-		() => loanAmount && interestRate && monthlyRate && !calculationTables,
+	const calculationPossible: boolean = useMemo(
+		() => !!(loanAmount && interestRate && monthlyRate && !calculationTables),
 		[calculationTables, interestRate, loanAmount, monthlyRate]
 	);
 
@@ -62,13 +62,13 @@ export const useCalculation = () => {
 			: onePercentRateVersion;
 		const investment = calculateInvestment(
 			annualSP500,
-			investmentData.inputs.monthlyRate,
+			investmentData.monthlyRate,
 			investmentData.years,
 			`Invest with average S&P 500 returns for ${investmentData.years} Years`
 		);
 		const pessimisticInvestment = calculateInvestment(
 			annualSP500 / 2,
-			investmentData.inputs.monthlyRate,
+			investmentData.monthlyRate,
 			investmentData.years,
 			`Invest with half the average S&P 500 returns for ${investmentData.years} Years`
 		);
