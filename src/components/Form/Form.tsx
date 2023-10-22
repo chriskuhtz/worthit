@@ -11,6 +11,8 @@ export const Form = ({
 	calculate,
 	ownCapital,
 	setOwnCapital,
+	yearsUntilRetirement,
+	setYearsUntilRetirement,
 }: {
 	loanAmount: number;
 	setLoanAmount: (x: number) => void;
@@ -22,6 +24,8 @@ export const Form = ({
 	calculate: () => void;
 	setOwnCapital: (x: number) => void;
 	ownCapital: number;
+	setYearsUntilRetirement: (x: number) => void;
+	yearsUntilRetirement: number;
 }): JSX.Element => {
 	return (
 		<div className="form">
@@ -61,6 +65,19 @@ export const Form = ({
 				label={'Own Capital ($)'}
 				explanation="Loan approval requires own capital, typically at least 10%. You could also invest this money and gain interest"
 			/>
+			<CustomInput
+				value={yearsUntilRetirement.toString()}
+				onChange={(x) => setYearsUntilRetirement(parseInt(x))}
+				errorMessage={''}
+				type={'number'}
+				placeholder={'Years until Retirement'}
+				label={'Years until Retirement'}
+				explanation="You probably want to pay off your house before you retire"
+			/>
+			<h3>upcoming Features</h3>
+			<p>consider current rent</p>
+			<p>consider increased utility and upkeep costs (property size)</p>
+			<p>consider future rent increases</p>
 			<button disabled={!calculationPossible} onClick={calculate}>
 				Calculate
 			</button>

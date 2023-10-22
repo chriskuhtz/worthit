@@ -10,6 +10,7 @@ export const useCalculation = () => {
 	const [interestRate, setInterestRate] = useState<number>(0);
 	const [monthlyRate, setMonthlyRate] = useState<number>(0);
 	const [ownCapital, setOwnCapital] = useState<number>(0);
+	const [yearsUntilRetirement, setYearsUntilRetirement] = useState<number>(0);
 
 	const onePercentRate = useMemo(() => {
 		const firstYearInterest = (loanAmount / 100) * interestRate;
@@ -48,6 +49,7 @@ export const useCalculation = () => {
 			interestRate,
 			monthlyRate,
 			onePercentRate,
+			yearsUntilRetirement,
 			'Your Version'
 		);
 		const onePercentRateVersion = calculatePurchase(
@@ -55,6 +57,7 @@ export const useCalculation = () => {
 			interestRate,
 			onePercentRate,
 			onePercentRate,
+			yearsUntilRetirement,
 			'Alternative: 1% Repayment'
 		);
 		const twoPercentRateVersion = calculatePurchase(
@@ -62,17 +65,31 @@ export const useCalculation = () => {
 			interestRate,
 			twoPercentRate,
 			onePercentRate,
+			yearsUntilRetirement,
 			'Alternative: 2% Repayment'
 		);
 
-		const investmentData = chosenVersion.isPossible
-			? chosenVersion
-			: onePercentRateVersion;
+		const investmentData = [
+			chosenVersion,
+			onePercentRateVersion,
+			twoPercentRateVersion,
+		].find((v) => !v.errorReason);
+
+		if (!investmentData) {
+			setCalculationTables([
+				chosenVersion,
+				onePercentRateVersion,
+				twoPercentRateVersion,
+			]);
+			return;
+		}
+
 		const investment = calculateInvestment(
 			annualSP500,
 			investmentData.monthlyRate,
 			investmentData.years,
 			ownCapital,
+			yearsUntilRetirement,
 			`Your Version invested with average S&P 500 returns for ${investmentData.years} Years`
 		);
 		const pessimisticInvestment = calculateInvestment(
@@ -80,6 +97,7 @@ export const useCalculation = () => {
 			investmentData.monthlyRate,
 			investmentData.years,
 			ownCapital,
+			yearsUntilRetirement,
 			`Your Version invested with half the average S&P 500 returns for ${investmentData.years} Years`
 		);
 		setCalculationTables([
@@ -94,6 +112,7 @@ export const useCalculation = () => {
 		interestRate,
 		monthlyRate,
 		onePercentRate,
+		yearsUntilRetirement,
 		twoPercentRate,
 		ownCapital,
 	]);
@@ -111,5 +130,7 @@ export const useCalculation = () => {
 		calculationTables,
 		ownCapital,
 		setOwnCapital,
+		yearsUntilRetirement,
+		setYearsUntilRetirement,
 	};
 };

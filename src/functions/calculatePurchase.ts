@@ -5,6 +5,7 @@ export const calculatePurchase = (
 	interestRate: number,
 	monthlyRate: number,
 	minRate: number,
+	yearsUntilRetirement: number,
 	headline: string
 ): LoanCalculationTable => {
 	if (minRate > monthlyRate) {
@@ -12,7 +13,7 @@ export const calculatePurchase = (
 			rows: [],
 			headline,
 			type: 'borrow',
-			isPossible: false,
+			errorReason: 'rate',
 			years: 0,
 			loanAmount,
 			interestRate,
@@ -33,9 +34,22 @@ export const calculatePurchase = (
 		rows.push({ year: i, remainingDebt: remainingAmount });
 	}
 
+	if (i > yearsUntilRetirement) {
+		return {
+			rows: [],
+			headline,
+			type: 'borrow',
+			errorReason: 'duration',
+			years: i,
+			loanAmount,
+			interestRate,
+			monthlyRate,
+		};
+	}
+
 	return {
 		rows,
-		isPossible: true,
+
 		years: i,
 		totalInterestPayed: totalInterestPayed,
 		headline,

@@ -18,7 +18,7 @@ export interface BaseCalculationTable {
 
 export interface LoanCalculationTable extends BaseCalculationTable {
 	type: 'borrow';
-	isPossible: boolean;
+	errorReason?: 'rate' | 'duration';
 	totalInterestPayed?: number;
 	loanAmount: number;
 }
@@ -27,6 +27,7 @@ export interface InvestmentCalculationTable extends BaseCalculationTable {
 	totalInterestGained: number;
 	totalInvested: number;
 	startingCapital: number;
+	valueAtRetirement: number;
 }
 export type CalculationTable =
 	| LoanCalculationTable
@@ -46,6 +47,8 @@ function App() {
 		setCalculationTables,
 		ownCapital,
 		setOwnCapital,
+		yearsUntilRetirement,
+		setYearsUntilRetirement,
 	} = useCalculation();
 	return (
 		<div className="container" style={{ alignItems: 'center' }}>
@@ -61,6 +64,8 @@ function App() {
 					calculate={calculate}
 					ownCapital={ownCapital}
 					setOwnCapital={setOwnCapital}
+					yearsUntilRetirement={yearsUntilRetirement}
+					setYearsUntilRetirement={setYearsUntilRetirement}
 				/>
 			)}
 			{calculationTables && (

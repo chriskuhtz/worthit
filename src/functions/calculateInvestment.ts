@@ -1,14 +1,11 @@
 import { CalculationTableRow, InvestmentCalculationTable } from '../App';
 
-export const calculateInvestment = (
-	interestRate: number,
-	monthlyRate: number,
-	years: number,
+const getTotal = (
 	ownCapital: number,
-	headline: string
-): InvestmentCalculationTable => {
-	console.log(years, monthlyRate);
-	const rows: CalculationTableRow[] = [];
+	years: number,
+	monthlyRate: number,
+	interestRate: number
+): number => {
 	let total = ownCapital;
 
 	let i = years;
@@ -18,6 +15,27 @@ export const calculateInvestment = (
 		total += (total / 100) * interestRate;
 		i -= 1;
 	}
+
+	return total;
+};
+export const calculateInvestment = (
+	interestRate: number,
+	monthlyRate: number,
+	years: number,
+	ownCapital: number,
+	yearsUntilRetirement: number,
+	headline: string
+): InvestmentCalculationTable => {
+	console.log(years, monthlyRate);
+	const rows: CalculationTableRow[] = [];
+
+	const total = getTotal(ownCapital, years, monthlyRate, interestRate);
+	const valueAtRetirement = getTotal(
+		ownCapital,
+		yearsUntilRetirement,
+		monthlyRate,
+		interestRate
+	);
 
 	return {
 		rows,
@@ -29,5 +47,6 @@ export const calculateInvestment = (
 		startingCapital: ownCapital,
 		totalInvested: years * monthlyRate * 12,
 		totalInterestGained: total - years * monthlyRate * 12,
+		valueAtRetirement,
 	};
 };
