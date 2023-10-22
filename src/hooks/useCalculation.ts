@@ -64,13 +64,13 @@ export const useCalculation = () => {
 			annualSP500,
 			investmentData.monthlyRate,
 			investmentData.years,
-			`Invest with average S&P 500 returns for ${investmentData.years} Years`
+			`Your Version invested with average S&P 500 returns for ${investmentData.years} Years`
 		);
 		const pessimisticInvestment = calculateInvestment(
 			annualSP500 / 2,
 			investmentData.monthlyRate,
 			investmentData.years,
-			`Invest with half the average S&P 500 returns for ${investmentData.years} Years`
+			`Your Version invested with half the average S&P 500 returns for ${investmentData.years} Years`
 		);
 		setCalculationTables([
 			chosenVersion,

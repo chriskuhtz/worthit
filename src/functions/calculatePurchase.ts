@@ -22,7 +22,7 @@ export const calculatePurchase = (
 	const rows: CalculationTableRow[] = [];
 	let remainingAmount = loanAmount;
 
-	let i = 1;
+	let i = 0;
 	let totalInterestPayed: number = 0;
 
 	while (remainingAmount > 0 && i < 100) {

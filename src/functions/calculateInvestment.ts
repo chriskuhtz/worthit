@@ -6,6 +6,7 @@ export const calculateInvestment = (
 	years: number,
 	headline: string
 ): InvestmentCalculationTable => {
+	console.log(years, monthlyRate);
 	const rows: CalculationTableRow[] = [];
 	let total = 0;
 

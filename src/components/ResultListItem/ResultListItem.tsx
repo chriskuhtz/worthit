@@ -1,4 +1,5 @@
 import { CalculationTable } from '../../App';
+import { getYearlyRepayment } from '../../functions/getYearlyRepayment';
 
 export const ResultListItem = ({
 	calcTable,
@@ -19,7 +20,15 @@ export const ResultListItem = ({
 
 					<p>Interest Rate: {calcTable.interestRate}%</p>
 					<p>Monthly Rate: {calcTable.monthlyRate}$</p>
-
+					<p>
+						Yearly Repayment:{' '}
+						{getYearlyRepayment(
+							calcTable.loanAmount,
+							calcTable.interestRate,
+							calcTable.monthlyRate
+						).toFixed(3)}
+						%
+					</p>
 					{calcTable.totalInterestPayed && (
 						<p>
 							Total Interest Payed: {calcTable.totalInterestPayed?.toFixed(0)}$
@@ -44,6 +53,16 @@ export const ResultListItem = ({
 				<div className="inputExplanation">
 					<p>Interest Rate: {calcTable.interestRate}%</p>
 					<p>Monthly Rate: {calcTable.monthlyRate}$</p>
+					<p>Invested: {calcTable.totalInvested.toFixed(0)}$</p>
+					<p>Interest Gained: {calcTable.totalInterestGained.toFixed(0)}$</p>
+
+					<p>
+						Total Value:{' '}
+						{(calcTable.totalInterestGained + calcTable.totalInvested).toFixed(
+							0
+						)}
+						$
+					</p>
 				</div>
 			</div>
 		);
