@@ -41,6 +41,9 @@ export const ResultListItem = ({
 						</p>
 					)}
 				</div>
+				{calcTable.totalInterestPayed && (
+					<p>Total Value: 1 Property that is {calcTable.years} years older</p>
+				)}
 			</div>
 		);
 	}
@@ -53,6 +56,7 @@ export const ResultListItem = ({
 				<div className="inputExplanation">
 					<p>Interest Rate: {calcTable.interestRate}%</p>
 					<p>Monthly Rate: {calcTable.monthlyRate}$</p>
+					<p>Starting Capital: {calcTable.startingCapital}$</p>
 					<p>Invested: {calcTable.totalInvested.toFixed(0)}$</p>
 					<p>Interest Gained: {calcTable.totalInterestGained.toFixed(0)}$</p>
 

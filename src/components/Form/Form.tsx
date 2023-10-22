@@ -9,6 +9,8 @@ export const Form = ({
 	monthlyRate,
 	calculationPossible,
 	calculate,
+	ownCapital,
+	setOwnCapital,
 }: {
 	loanAmount: number;
 	setLoanAmount: (x: number) => void;
@@ -18,6 +20,8 @@ export const Form = ({
 	monthlyRate: number;
 	calculationPossible: boolean;
 	calculate: () => void;
+	setOwnCapital: (x: number) => void;
+	ownCapital: number;
 }): JSX.Element => {
 	return (
 		<div className="form">
@@ -48,7 +52,15 @@ export const Form = ({
 				label={'Monthly Rate ($)'}
 				explanation="How much can you repay each month"
 			/>
-
+			<CustomInput
+				value={ownCapital.toString()}
+				onChange={(x) => setOwnCapital(parseInt(x))}
+				errorMessage={''}
+				type={'number'}
+				placeholder={'Own Capital'}
+				label={'Own Capital ($)'}
+				explanation="Loan approval requires own capital, typically at least 10%. You could also invest this money and gain interest"
+			/>
 			<button disabled={!calculationPossible} onClick={calculate}>
 				Calculate
 			</button>

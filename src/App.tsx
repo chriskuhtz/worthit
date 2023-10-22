@@ -26,6 +26,7 @@ export interface InvestmentCalculationTable extends BaseCalculationTable {
 	type: 'invest';
 	totalInterestGained: number;
 	totalInvested: number;
+	startingCapital: number;
 }
 export type CalculationTable =
 	| LoanCalculationTable
@@ -43,6 +44,8 @@ function App() {
 		monthlyRate,
 		calculationTables,
 		setCalculationTables,
+		ownCapital,
+		setOwnCapital,
 	} = useCalculation();
 	return (
 		<div className="container" style={{ alignItems: 'center' }}>
@@ -56,6 +59,8 @@ function App() {
 					monthlyRate={monthlyRate}
 					calculationPossible={calculationPossible}
 					calculate={calculate}
+					ownCapital={ownCapital}
+					setOwnCapital={setOwnCapital}
 				/>
 			)}
 			{calculationTables && (

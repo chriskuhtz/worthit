@@ -9,6 +9,7 @@ export const useCalculation = () => {
 	const [loanAmount, setLoanAmount] = useState<number>(0);
 	const [interestRate, setInterestRate] = useState<number>(0);
 	const [monthlyRate, setMonthlyRate] = useState<number>(0);
+	const [ownCapital, setOwnCapital] = useState<number>(0);
 
 	const onePercentRate = useMemo(() => {
 		const firstYearInterest = (loanAmount / 100) * interestRate;
@@ -30,8 +31,15 @@ export const useCalculation = () => {
 	}, [loanAmount, interestRate, monthlyRate]);
 
 	const calculationPossible: boolean = useMemo(
-		() => !!(loanAmount && interestRate && monthlyRate && !calculationTables),
-		[calculationTables, interestRate, loanAmount, monthlyRate]
+		() =>
+			!!(
+				loanAmount &&
+				interestRate &&
+				monthlyRate &&
+				ownCapital &&
+				!calculationTables
+			),
+		[calculationTables, interestRate, loanAmount, monthlyRate, ownCapital]
 	);
 
 	const calculate = useCallback(() => {
@@ -64,12 +72,14 @@ export const useCalculation = () => {
 			annualSP500,
 			investmentData.monthlyRate,
 			investmentData.years,
+			ownCapital,
 			`Your Version invested with average S&P 500 returns for ${investmentData.years} Years`
 		);
 		const pessimisticInvestment = calculateInvestment(
 			annualSP500 / 2,
 			investmentData.monthlyRate,
 			investmentData.years,
+			ownCapital,
 			`Your Version invested with half the average S&P 500 returns for ${investmentData.years} Years`
 		);
 		setCalculationTables([
@@ -79,7 +89,14 @@ export const useCalculation = () => {
 			investment,
 			pessimisticInvestment,
 		]);
-	}, [loanAmount, interestRate, monthlyRate, onePercentRate, twoPercentRate]);
+	}, [
+		loanAmount,
+		interestRate,
+		monthlyRate,
+		onePercentRate,
+		twoPercentRate,
+		ownCapital,
+	]);
 
 	return {
 		loanAmount,
@@ -92,5 +109,7 @@ export const useCalculation = () => {
 		interestRate,
 		monthlyRate,
 		calculationTables,
+		ownCapital,
+		setOwnCapital,
 	};
 };
