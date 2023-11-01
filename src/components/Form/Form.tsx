@@ -78,6 +78,8 @@ export const Form = ({
 			<p>consider current rent</p>
 			<p>consider increased utility and upkeep costs (property size)</p>
 			<p>consider future rent increases</p>
+			<p>investing the monthly rate after loan is paid off</p>
+			<p>Mixed Case: Lowest possible rate and invest the rest</p>
 			<button disabled={!calculationPossible} onClick={calculate}>
 				Calculate
 			</button>
